@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-vite-deployment
+  labels:
+    app: demo-vite
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-vite
+  template:
+    metadata:
+      labels:
+        app: demo-vite
+    spec:
+      containers:
+      - name: demo-vite
+        image: cr-hn-1.bizflycloud.vn/0b49d920dd59430182859279487c31d5/demo:latest
+        ports:
+        - containerPort: 5173
+
