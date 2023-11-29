@@ -18,5 +18,5 @@ spec:
       - name: demo-vite
         image: cr-hn-1.bizflycloud.vn/0b49d920dd59430182859279487c31d5/demo:latest
         ports:
-        - containerPort: 5173
+        - containerPort: 80
 

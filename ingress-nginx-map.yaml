@@ -1,0 +1,34 @@
+# On the management cluster
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+data:
+  values: |
+    controller:
+      # Additional volumes.
+      extraVolumes:
+      - name: modsecurity
+        configMap:
+          name: ingress-nginx-controller-modsecurity
+
+      # Additional volume mounts.
+      extraVolumeMounts:
+      - name: modsecurity
+        mountPath: /etc/nginx/modsecurity/custom/
+
+      config:
+        # Enable ModSecurity.
+        enable-modsecurity: "true"
+
+        # Custom ModSecurity configuration.
+        modsecurity-snippet: |-
+          # Include defaults.
+          Include /etc/nginx/modsecurity/modsecurity.conf
+
+          # Include custom configuration.
+          Include /etc/nginx/modsecurity/custom/modsecurity.conf
+
+        # Optional: Enable OWASP ModSecurity Core Rule Set.
+        enable-owasp-modsecurity-crs: "true"  
